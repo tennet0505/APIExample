@@ -7,14 +7,25 @@
 //
 
 import UIKit
+import RxSwift
+
 
 class ViewController: UIViewController {
-
+    
+    var array = [Service]()
+    var disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        API.shared.getServices().subscribe(onNext: { [weak self] services in
+            self!.array = services
+            }, onError: {e in
+                print(e)
+                }).disposed(by: disposeBag)
+        print(array)
     }
-
-
+    
+    
 }
 
