@@ -18,7 +18,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        API.shared.getServices().subscribe(onNext: { [weak self] services in
+        API.shared.getServices()
+            .subscribe(onNext: { [weak self] services in
             self!.array = services
             }, onError: {e in
                 print(e)

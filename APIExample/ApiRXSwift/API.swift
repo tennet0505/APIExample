@@ -21,7 +21,7 @@ private var serverUrl:String {
     
     
     func getServices() -> Observable<[Service]>{
-        return createRequest(url: serverUrl + "/services")
+        return createRequest(url: serverUrl + "/DishOfDayList")
     }
     
     

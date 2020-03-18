@@ -8,39 +8,53 @@
 
 import Alamofire
 
-class Logger{
+open class Logger{
     //MARK: lifecycle
-    static func logViewDidLoad(_ object:Any){
+    static public func logViewDidLoad(_ object:Any){
         let name = String(describing: type(of: object))
         logUrl("vc load   :\(name)")
     }
-    static func logDeinit(_ object:Any){
+    static public func logDeinit(_ object:Any){
         let name = String(describing: type(of: object))
         logUrl("deinit    :\(name)")
     }
     
     //MARK: networking
-    static func logRequest(url:String,parameters: [String: Any]?, headers: HTTPHeaders?, method: HTTPMethod = .get){
-        var logText =   "\n------------- REQUEST ---------------"
+    static public func logRequest(url:String,parameters: [String: Any]?, headers: HTTPHeaders?, method: HTTPMethod = .get){
+        var logText =   "\n➡️➡️➡️➡️➡️➡️ REQUEST ➡️➡️➡️➡️➡️➡️➡️"
         logText +=      "\n" + "URL          - %@ "
         logText +=      "\n" + "parameters   - \(String(describing: parameters)) "
         logText +=      "\n" + "headers      - \(String(describing: headers)) "
         logText +=      "\n" + "method       - \(method) "
-        logText +=      "\n-------------------------------------"
+        logText +=      "\n➡️➡️➡️➡️➡️➡️➡️➡️➡️➡️➡️➡️➡️➡️➡️➡️➡️"
         logUrl(logText,url:url)
     }
+    
+    static public func logResponse<Value>(packedResponse:DataResponse<Value>){
+        var logText =   "\n⬅️⬅️⬅️⬅️⬅️⬅️ RESPONSE  ⬅️⬅️⬅️⬅️⬅️⬅️"
+        logText +=      "\n" + "URL          - \(packedResponse.request?.url?.absoluteString ?? "nil")"
+        if let statusCode = packedResponse.response?.statusCode{
+            logText +=      "\n" + "code         - \(statusCode)"
+        }
+        if let error = packedResponse.result.error?.localizedDescription{
+            logText +=      "\n" + "error        - \(error)"
+        }
+        logText +=      "\n⬅️⬅️⬅️⬅️⬅️⬅️⬅️⬅️⬅️⬅️⬅️⬅️⬅️⬅️⬅️⬅️⬅️"
+        logUrl(logText)
+    }
+    
     //MARK: other
-    static func log(_ text:String,_ logLevel:LogLevel = .none){
+    static public func log(_ text:String,_ logLevel:LogLevel = .none){
         logUrl("\(logLevel.rawValue) \(text)")
     }
     
     //MARK: private
-    private static func logUrl(_ logText:String,url:String? = nil){
-        NSLog(logText, url ?? "nil")
+    public static func logUrl(_ logText:String,url:String? = nil){
+        NSLog(logText, url ?? "")
         //        CLSLogv(logText, getVaList([(url ?? "nil")]))
     }
     
-    enum LogLevel:String{
+    public enum LogLevel:String{
         case
         none    = "",
         info    = "✅",
@@ -48,4 +62,3 @@ class Logger{
         err     = "🔴"
     }
 }
-

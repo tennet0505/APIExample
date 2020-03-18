@@ -15,6 +15,7 @@ target 'APIExample' do
   pod 'RxSwift'
   pod 'RxAlamofire'
   pod 'SVProgressHUD'
+  pod 'MobileBankCore'
   
 
 

@@ -10,5 +10,5 @@ import Foundation
 
 class Constants{
     static let
-    API_URL = "https://tmaamv.spalmalo.com/api/v1"
+    API_URL = "http://212.42.122.247:303/VirtualCardSecureService.svc"
 }
